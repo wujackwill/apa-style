@@ -19,34 +19,10 @@ Sub AdjustStles()
         regex.Pattern = ".*[\u4e00-\u9fa5]+, \d+\(\d+\).*"
         If regex.Test(para.Range.text) Then
             ' 中文段落设置字体为宋体
-            para.Range.Font.Name = "宋体"
             
             ' 清除中文段落的斜体
             para.Range.Font.Italic = False
-        Else
-            ' 遍历段落中的每一个 Run
-            For Each run In para.Range.Words
-                ' 检查当前 Run 的文本是否为阿拉伯数字
-                If IsArabicNumber(run.text) Then
-                    ' 设置阿拉伯数字 Run 的字体为 Times New Roman
-                    run.Font.Name = "Times New Roman"
-                End If
-            Next run
         End If
     Next para
 End Sub
-
-Function IsArabicNumber(text As String) As Boolean
-    ' 使用正则表达式检查文本是否为阿拉伯数字
-    Dim regex As Object
-    Set regex = CreateObject("VBScript.RegExp")
-    
-    ' 匹配阿拉伯数字的正则表达式
-    regex.Pattern = "^\d+(\(\d+\))?(\.\d+)?$"
-    
-    ' 检查文本是否符合正则表达式
-    IsArabicNumber = regex.Test(text)
-End Function
-
-
 
