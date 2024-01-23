@@ -51,6 +51,14 @@ Usage
     4. Click Run.
 
 
+Note 
+----
+
+
+**Set the default Chinese font to "宋体" and default English font to  "Times New Roman" in word
+for Zotero bibliography to display the right font**
+
+
 Licensing
 ---------
 
