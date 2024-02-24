@@ -1,46 +1,46 @@
 Attribute VB_Name = "NewMacros1"
-
 Sub AdjustStyles()
     Dim doc As Document
-    Set doc = ActiveDocument ' Ê¹ÓÃµ±Ç°»î¶¯ÎÄµµ
+    Set doc = ActiveDocument
 
     Dim para As Paragraph
     Dim regex As Object
     Set regex = CreateObject("VBScript.RegExp")
     
+    ' ä½¿ç”¨æ­£åˆ™è¡¨è¾¾å¼æ£€æŸ¥æ˜¯å¦åŒ…å«ä¸­æ–‡å¥å­æ ¼å¼ "å¤–è¯­æ•™å­¦ä¸ç ”ç©¶, 52"
+    regex.Pattern = ".*[\u4e00-\u9fa5]+, \d+.*"
+
+    ' å¤„ç†åŒ¹é…é¡¹
     For Each para In doc.Paragraphs
-        ' Ê¹ÓÃÕıÔò±í´ïÊ½¼ì²éÊÇ·ñ°üº¬ÖĞÎÄ¾ä×Ó¸ñÊ½ "ÍâÓï½ÌÑ§ÓëÑĞ¾¿, 52(1)"
-        regex.Pattern = ".*[\u4e00-\u9fa5]+, \d+\(\d+\).*"
         If regex.Test(para.Range.text) Then
-            ' ÖĞÎÄ¶ÎÂäÉèÖÃ×ÖÌåÎªËÎÌå
-            
-            ' Çå³ıÖĞÎÄ¶ÎÂäµÄĞ±Ìå
             para.Range.Font.Italic = False
         End If
     Next para
-    
-    ' ±éÀúÎÄµµÖĞµÄÃ¿Ò»¸ö¶ÎÂä
-    For Each para In doc.Paragraphs
-        ' Ê¹ÓÃÕıÔò±í´ïÊ½¼ì²éÊÇ·ñ°üº¬ÖĞÎÄ¾ä×Ó¸ñÊ½ ", ÍâÓï½ÌÑ§ÓëÑĞ¾¿, 52(1),"
-        regex.Pattern = "([.,]\s*)([Ò»-ı›\s]+)([,])"
 
-        ' ²éÕÒÆ¥ÅäÏî
+    ' ä½¿ç”¨æ­£åˆ™è¡¨è¾¾å¼æ£€æŸ¥æ˜¯å¦åŒ…å«ä¸­æ–‡å¥å­æ ¼å¼ "å¤–è¯­æ•™å­¦ä¸ç ”ç©¶, 52(1)"
+    regex.Pattern = ".*[\u4e00-\u9fa5]+, \d+\(\d+\).*"
+
+    ' å¤„ç†åŒ¹é…é¡¹
+    For Each para In doc.Paragraphs
+        If regex.Test(para.Range.text) Then
+            para.Range.Font.Italic = False
+        End If
+    Next para
+
+    ' å†æŠŠä¸­æ–‡æ–œä½“
+    regex.Pattern = "([.,]\s*)([ä¸€-é¾¥\s]+)([,])"
+
+    ' å¤„ç†åŒ¹é…é¡¹
+    For Each para In doc.Paragraphs
         Dim matches As Object
         Set matches = regex.Execute(para.Range.text)
         
-        ' ´¦ÀíÆ¥ÅäÏî
         For Each match In matches
-            ' »ñÈ¡Æ¥ÅäÏîµÄ·¶Î§
             Dim matchRange As Range
             Set matchRange = para.Range.Duplicate
             matchRange.SetRange para.Range.Start + match.FirstIndex, para.Range.Start + match.FirstIndex + match.Length - 1
-
-            ' ÉèÖÃÖĞÎÄ¶ÎÂäµÄĞ±Ìå
             matchRange.Font.Italic = True
         Next match
     Next para
-    
-
 End Sub
-
 
