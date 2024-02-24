@@ -1,9 +1,4 @@
-Attribute VB_Name = "NewMacros"
-Sub ZoteroAddEditBibliography()
-'
-' ZoteroAddEditBibliography 宏
-'
-'
+Attribute VB_Name = "NewMacros1"
 
 Sub AdjustStyles()
     Dim doc As Document
