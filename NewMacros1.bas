@@ -1,5 +1,13 @@
 Attribute VB_Name = "NewMacros1"
-Sub AdjustStyles()
+Sub Adjuststyles()
+
+    Call italicstyles
+    
+    Call RemoveParagraphIndentationAndDoubleSpacing
+End Sub
+
+
+Public Sub italicstyles()
     Dim doc As Document
     Set doc = ActiveDocument
 
@@ -7,20 +15,16 @@ Sub AdjustStyles()
     Dim regex As Object
     Set regex = CreateObject("VBScript.RegExp")
     
-    ' 使用正则表达式检查是否包含中文句子格式 "外语教学与研究, 52"
     regex.Pattern = ".*[\u4e00-\u9fa5]+, \d+.*"
 
-    ' 处理匹配项
     For Each para In doc.Paragraphs
         If regex.Test(para.Range.text) Then
             para.Range.Font.Italic = False
         End If
     Next para
 
-    ' 使用正则表达式匹配中文文本，不论后面的数字格式如何，只要逗号之间夹着数字就匹配成功
     regex.Pattern = "([\u4e00-\u9fa5]+), \d+.*"
 
-    ' 处理匹配项
     For Each para In doc.Paragraphs
         Dim matches As Object
         Set matches = regex.Execute(para.Range.text)
@@ -34,4 +38,21 @@ Sub AdjustStyles()
         Next match
     Next para
 End Sub
+
+
+Public Sub RemoveParagraphIndentationAndDoubleSpacing()
+    Dim para As Paragraph
+    Dim text As String
+    Dim i As Long
+    
+    For Each para In ActiveDocument.Paragraphs
+        text = para.Range.text
+        If Left(text, 1) = "[" Then
+            para.LeftIndent = 0
+            para.FirstLineIndent = 0
+            para.LineSpacingRule = wdLineSpaceSingle
+        End If
+    Next para
+End Sub
+
 
