@@ -19,7 +19,7 @@
     <category citation-format="author-date"/>
     <category field="psychology"/>
     <category field="generic-base"/>
-    <updated>2024-01-22T05:18:42+00:00</updated>
+    <updated>2024-03-19T06:24:55+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="en">
@@ -323,7 +323,7 @@
     </terms>
   </locale>
   <macro name="author-bib">
-    <names variable="composer" delimiter=", ">
+    <names variable="composer" delimiter=", " suffix=".">
       <name name-as-sort-order="all" and="symbol" sort-separator=", " initialize-with=". " delimiter=", " delimiter-precedes-last="always"/>
       <substitute>
         <names variable="author"/>
@@ -430,7 +430,7 @@
     </choose>
   </macro>
   <macro name="date-bib">
-    <group delimiter=" " prefix="(" suffix=")">
+    <group delimiter=" " prefix="(" suffix=").">
       <choose>
         <if is-uncertain-date="issued">
           <text term="circa" form="short"/>
@@ -1750,7 +1750,7 @@
   <bibliography hanging-indent="true" et-al-min="21" et-al-use-first="19" et-al-use-last="true" entry-spacing="0" line-spacing="2">
     <sort>
       <key macro="author-bib"/>
-      <key macro="date-sort-group"/>
+      <key macro="author-intext"/>
       <key macro="date-sort-date" sort="ascending"/>
       <key variable="status"/>
       <key macro="title"/>
